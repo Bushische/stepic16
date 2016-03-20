@@ -62,12 +62,13 @@ DATABASES = {
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
      'default': {
-         'ENGINE': ''django.db.backends.mysql',
-         'NAME': 'tempdb',
-         'USER': 'root',
-#         'password': '',
-         'HOST': '127.0.0.1',
-#         ''
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'testdb',
+         'USER': 'enth',
+         'PASSWORD': 'password',
+         'HOST': 'localhost',
+         'PORT' : ''
+    }
 }
 
 # Internationalization
