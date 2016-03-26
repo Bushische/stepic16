@@ -1,0 +1,11 @@
+<html>
+<head>question info</head>
+<body>
+<h1>{{question.title}}</h1>
+<p>{{question.text}}</p>
+<p>All answers:</p>
+ {% for ans in answers %}
+  <p>answer: {{ans.text}}</p>
+ {% endfor %}
+</body>
+</html>

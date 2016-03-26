@@ -1,0 +1,33 @@
+<html>
+<head>questions list</head>
+<body>
+<h1>Question list</h1>
+<ul>
+<table>
+    <tr><th>ID</th><th>Name</th><th>Text</th><th>Rating</th></tr>
+ {% for q in ques %}
+    <tr><td>{{q.id}}</td>
+        <td><a href="{% url 'question' q.id %}">{{q.title}}</a></td>
+        <td>{{q.text}}</td><td>{{q.rating}}</td></tr>
+ <!-- <p>id: {{q.id}} | title: {{q.title}} | text: {{q.text}}</p> -->
+ {% endfor %}
+</table>
+</ul>
+
+<p>Pages:</p>
+<nav>
+<ul class="pagination">
+{% for p in paginator.page_range %}
+  {% if p == page %}
+  <li class="active">
+  {% else %}
+  <li>
+  {% endif %}
+    <a href="{{ paginator.baseurl }}{{ p }}">
+    Page {{ p }}</a>
+   </li>
+{% endfor %}
+</ul>
+</nav>
+</body>
+</html>
