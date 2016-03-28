@@ -19,5 +19,7 @@ urlpatterns = patterns('',
     url(r'^question/(?P<inid>\d+)/$', 'qa.views.showquestion', name="question"),
     url(r'^initdb/(?P<cou>\d+)/$', 'qa.views.filldb'),
     url(r'^popular/', 'qa.views.showpopular', name="popular"),
+    url(r'^ask/$', 'qa.views.question_add', name="new_question"),
+    url(r'^answer/$', 'qa.views.answer_add', name='new_answer'),
     url(r'^', 'qa.views.showbyid', name="last")
 )

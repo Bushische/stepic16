@@ -8,4 +8,11 @@
   <p>answer: {{ans.text}}</p>
  {% endfor %}
 </body>
+<p>Add new answer</p>
+<form class="form-horizontal" method="post" action="/answer/">
+    {{ form }}
+    <div class="form-actios">
+        <button type="submit" class="btn-primary">SAVE</button>
+    </div>
+</form>
 </html>

@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from models import Question
 from models import Answer
 from datetime import date
 from django.core.paginator import Paginator, EmptyPage
+from forms import AskForm, AnswerForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -35,9 +36,12 @@ def showquestion(request, inid):
     except Question.DoesNotExist:
         print "Question with id=%s was not found" % (inid)
         raise Http404
+
+    form = AnswerForm(initial={'question': inid})
     return render(request, "qa/onequest.html",
                   {'question' : que,
                    'answers' : que.answer_set.all(),
+                   'form': form,
                    })
 
 # prepare common part of all objs
@@ -78,7 +82,42 @@ def showbyid(request):
     ques = ques.order_by('-id')
     return prepareAndShow(request, ques, '/?page=')
 
+#========================================
 
+# Add new Question
+def question_add(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+    #   form = AskForm(initial={'question': question_id})
+        if form.is_valid():
+            ques = form.save()
+            url = ques.get_url()
+            print 'redirect to %s' % (url)
+            return HttpResponseRedirect(url)
+        print 'qa if but not valid'
+    else:
+        form = AskForm()
+        print 'qa else'
+    return render(request, 'qa/question_add.html', {'form': form})
+
+# Add new Answer
+def answer_add(request):
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answ = form.save()
+            print 'try get url from answer %s' % (answ)
+            url = answ.question.get_url()
+            print 'redirect to %s' % (url)
+            return HttpResponseRedirect(url)
+        print 'answer_add if but not valid'
+    else:
+        form = AnswerForm()
+        print 'answer add else'
+    return Http404
+
+
+"""
 # show info for one question
 def showquestion1(request, inid):
     print 'start showquestion with inid = %s' % (inid)
@@ -104,6 +143,7 @@ def showquestion1(request, inid):
         print 'EXC2: %s (%s)' % (e.message, type(e))
     return HttpResponse("not OK")
 #    return render(request, "OK")
+"""
 
 """
     
