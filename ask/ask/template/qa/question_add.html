@@ -9,6 +9,7 @@
 {% endfor %}
 
 <form class="form-horizontal" method="post" action="/ask/">
+{% csrf_token %}
  <!--   <fieldset>
         {% for field in form %}
             <div class="control-group {% if field.errors %}has-error{% endif %}">

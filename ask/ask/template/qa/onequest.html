@@ -10,6 +10,7 @@
 </body>
 <p>Add new answer</p>
 <form class="form-horizontal" method="post" action="/answer/">
+{% csrf_token %}
     {{ form }}
     <div class="form-actios">
         <button type="submit" class="btn-primary">SAVE</button>
